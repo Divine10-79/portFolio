@@ -1,592 +1,526 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Okechukwu Divine | Portfolio</title>
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: Arial, sans-serif;
-    }
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Okechukwu Divine | Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-    html {
-      scroll-behavior: smooth;
-    }
+  :root {
+    --bg: #0d0d0d;
+    --surface: #161616;
+    --surface2: #1e1e1e;
+    --accent: #c8a96e;
+    --accent2: #e8c98a;
+    --text: #f0ece4;
+    --muted: #888880;
+    --border: rgba(200,169,110,0.2);
+    --font-display: 'Playfair Display', serif;
+    --font-body: 'DM Sans', sans-serif;
+  }
 
-    :root {
-      --bg: #0f1220;
-      --bg-2: #171b2d;
-      --text: #eef1ff;
-      --muted: #a8b0d6;
-      --accent: #7c5cff;
-      --accent-2: #00d4ff;
-      --border: rgba(255, 255, 255, 0.08);
-      --shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
-    }
+  html { scroll-behavior: smooth; }
 
-    body {
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.6;
-      overflow-x: hidden;
-    }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
 
-    a {
-      text-decoration: none;
-      color: inherit;
-    }
+  /* NAV */
+  nav {
+    position: fixed; top: 0; width: 100%; z-index: 100;
+    padding: 1.2rem 3rem;
+    display: flex; justify-content: space-between; align-items: center;
+    background: rgba(13,13,13,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    animation: slideDown 0.6s ease both;
+  }
+  .nav-logo {
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    color: var(--accent);
+    letter-spacing: 0.05em;
+  }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 0.85rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    transition: color 0.3s;
+    position: relative;
+  }
+  .nav-links a::after {
+    content: ''; position: absolute; bottom: -4px; left: 0;
+    width: 0; height: 1px; background: var(--accent);
+    transition: width 0.3s;
+  }
+  .nav-links a:hover { color: var(--accent); }
+  .nav-links a:hover::after { width: 100%; }
 
-    img {
-      max-width: 100%;
-      display: block;
-    }
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex; align-items: center;
+    padding: 8rem 3rem 4rem;
+    position: relative; overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute; inset: 0; z-index: 0;
+    background: radial-gradient(ellipse at 70% 50%, rgba(200,169,110,0.07) 0%, transparent 60%);
+  }
+  .hero-grid {
+    position: absolute; inset: 0; z-index: 0;
+    background-image: linear-gradient(rgba(200,169,110,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(200,169,110,0.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+  .hero-content { position: relative; z-index: 1; max-width: 700px; }
+  .hero-tag {
+    display: inline-block;
+    font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--accent); border: 1px solid var(--border);
+    padding: 0.4rem 1rem; border-radius: 2px;
+    margin-bottom: 1.5rem;
+    animation: fadeUp 0.7s 0.3s ease both;
+  }
+  .hero-name {
+    font-family: var(--font-display);
+    font-size: clamp(3rem, 6vw, 5rem);
+    font-weight: 600;
+    line-height: 1.1;
+    color: var(--text);
+    animation: fadeUp 0.7s 0.5s ease both;
+  }
+  .hero-name span { color: var(--accent); }
+  .hero-sub {
+    font-size: 1.1rem; color: var(--muted);
+    margin: 1.5rem 0 2.5rem;
+    animation: fadeUp 0.7s 0.7s ease both;
+  }
+  .hero-btns {
+    display: flex; gap: 1rem; flex-wrap: wrap;
+    animation: fadeUp 0.7s 0.9s ease both;
+  }
+  .btn {
+    padding: 0.85rem 2rem;
+    font-family: var(--font-body);
+    font-size: 0.85rem; letter-spacing: 0.06em; text-transform: uppercase;
+    text-decoration: none;
+    border-radius: 2px;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: inline-block;
+  }
+  .btn-primary {
+    background: var(--accent); color: #0d0d0d;
+    border: 1px solid var(--accent);
+    font-weight: 500;
+  }
+  .btn-primary:hover { background: var(--accent2); transform: translateY(-2px); }
+  .btn-outline {
+    background: transparent; color: var(--text);
+    border: 1px solid rgba(240,236,228,0.2);
+  }
+  .btn-outline:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
 
-    .hero {
-      min-height: 100vh;
-      padding: 24px;
-      background: linear-gradient(135deg, var(--bg) 0%, #171b2d 100%);
-    }
+  /* SECTIONS */
+  section {
+    padding: 6rem 3rem;
+    max-width: 1000px; margin: 0 auto;
+  }
+  .section-label {
+    font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--accent); margin-bottom: 0.5rem;
+  }
+  .section-title {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 4vw, 2.8rem);
+    font-weight: 600; margin-bottom: 3rem;
+    color: var(--text);
+  }
+  .divider {
+    width: 48px; height: 1px;
+    background: var(--accent);
+    margin: 1rem 0 2.5rem;
+  }
 
-    .nav {
-      max-width: 1200px;
-      margin: 0 auto 60px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 20px;
-      flex-wrap: wrap;
-    }
+  /* ABOUT */
+  .about-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 4rem; align-items: center;
+  }
+  .about-text p { color: var(--muted); line-height: 1.9; margin-bottom: 1rem; }
+  .about-image { position: relative; }
+  .about-image-frame {
+    width: 100%; aspect-ratio: 3/4; max-width: 320px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    overflow: hidden;
+    position: relative;
+  }
+  .about-image-frame img { width: 100%; height: 100%; object-fit: cover; }
+  .about-image-frame::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(to bottom, transparent 60%, rgba(13,13,13,0.6));
+    z-index: 1;
+  }
+  .image-accent {
+    position: absolute; top: 16px; left: -16px;
+    width: 100%; height: 100%; max-width: 320px;
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    z-index: -1;
+  }
 
-    .logo {
-      font-weight: 700;
-      font-size: 1.2rem;
-      letter-spacing: 1px;
-    }
+  /* SKILLS */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 1rem;
+  }
+  .skill-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    padding: 1.5rem 1.25rem;
+    transition: all 0.3s;
+    position: relative; overflow: hidden;
+  }
+  .skill-card::before {
+    content: ''; position: absolute;
+    bottom: 0; left: 0; height: 2px; width: 0;
+    background: var(--accent);
+    transition: width 0.4s;
+  }
+  .skill-card:hover { border-color: var(--accent); transform: translateY(-4px); }
+  .skill-card:hover::before { width: 100%; }
+  .skill-icon { font-size: 1.5rem; margin-bottom: 0.75rem; }
+  .skill-name { font-size: 0.9rem; font-weight: 500; color: var(--text); }
+  .skill-level { font-size: 0.75rem; color: var(--muted); margin-top: 0.25rem; }
 
-    .menu-btn {
-      display: none;
-      background: transparent;
-      border: 1px solid var(--border);
-      color: var(--text);
-      padding: 10px 14px;
-      border-radius: 10px;
-      cursor: pointer;
-    }
+  /* HOBBIES */
+  .hobbies-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+  }
+  .hobby-item {
+    display: flex; align-items: center; gap: 1rem;
+    padding: 1rem 1.25rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    color: var(--muted);
+    font-size: 0.9rem;
+    transition: all 0.3s;
+  }
+  .hobby-item:hover { border-color: var(--accent); color: var(--text); transform: translateX(4px); }
+  .hobby-dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--accent); flex-shrink: 0;
+  }
 
-    .nav-links {
-      display: flex;
-      gap: 18px;
-      flex-wrap: wrap;
-      color: var(--muted);
-      justify-content: center;
-      align-items: center;
-    }
+  /* PROJECTS */
+  .projects-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+  .project-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    padding: 2rem;
+    transition: all 0.3s;
+  }
+  .project-card:hover { border-color: var(--accent); transform: translateY(-4px); }
+  .project-badge {
+    display: inline-block;
+    font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--accent); border: 1px solid var(--border);
+    padding: 0.25rem 0.75rem; border-radius: 2px; margin-bottom: 1rem;
+  }
+  .project-title {
+    font-family: var(--font-display);
+    font-size: 1.3rem; margin-bottom: 0.75rem; color: var(--text);
+  }
+  .project-desc { color: var(--muted); font-size: 0.9rem; margin-bottom: 1.5rem; }
+  .project-link {
+    color: var(--accent); text-decoration: none;
+    font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase;
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    transition: gap 0.3s;
+  }
+  .project-link:hover { gap: 0.75rem; }
 
-    .nav-links a:hover,
-    .nav-links a.active {
-      color: #fff;
-    }
+  /* CONTACT */
+  .contact-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 3rem;
+  }
+  .contact-text p { color: var(--muted); line-height: 1.9; }
+  .contact-links { display: flex; flex-direction: column; gap: 1rem; }
+  .contact-link {
+    display: flex; align-items: center; gap: 1rem;
+    padding: 1rem 1.25rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    text-decoration: none;
+    color: var(--text);
+    font-size: 0.9rem;
+    transition: all 0.3s;
+  }
+  .contact-link:hover { border-color: var(--accent); transform: translateX(4px); }
+  .contact-link-icon { color: var(--accent); font-size: 1rem; }
 
-    .hero-inner {
-      max-width: 1200px;
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: 1.1fr 0.9fr;
-      gap: 40px;
-      align-items: center;
-      min-height: calc(100vh - 140px);
-    }
+  /* FOOTER */
+  footer {
+    text-align: center; padding: 3rem;
+    border-top: 1px solid var(--border);
+    color: var(--muted); font-size: 0.8rem;
+  }
 
-    .hero-content {
-      max-width: 650px;
-    }
+  /* SCROLL REVEAL */
+  .reveal {
+    opacity: 0; transform: translateY(30px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  .reveal-delay-1 { transition-delay: 0.1s; }
+  .reveal-delay-2 { transition-delay: 0.2s; }
+  .reveal-delay-3 { transition-delay: 0.3s; }
+  .reveal-delay-4 { transition-delay: 0.4s; }
+  .reveal-delay-5 { transition-delay: 0.5s; }
 
-    .tag {
-      color: var(--accent);
-      font-size: 0.95rem;
-      margin-bottom: 16px;
-      font-weight: 600;
-    }
+  /* KEYFRAMES */
+  @keyframes slideDown {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
 
-    h1 {
-      font-size: clamp(2.5rem, 6vw, 5rem);
-      line-height: 1.05;
-      margin-bottom: 12px;
-    }
+  .cursor-glow {
+    position: fixed; pointer-events: none;
+    width: 300px; height: 300px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(200,169,110,0.06) 0%, transparent 70%);
+    transform: translate(-50%, -50%);
+    transition: left 0.1s, top 0.1s;
+    z-index: 0;
+  }
 
-    h2 {
-      font-size: clamp(1.2rem, 3vw, 2rem);
-      color: #cfd5f7;
-      margin-bottom: 20px;
-      font-weight: 600;
-      min-height: 2.5em;
-    }
-
-    .hero-text {
-      max-width: 620px;
-      color: var(--muted);
-      margin-bottom: 28px;
-    }
-
-    .hero-buttons {
-      display: flex;
-      gap: 14px;
-      flex-wrap: wrap;
-    }
-
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      padding: 12px 20px;
-      border-radius: 999px;
-      transition: 0.3s ease;
-      border: 1px solid transparent;
-      font-weight: 600;
-    }
-
-    .btn.primary {
-      background: var(--accent);
-      color: #fff;
-    }
-
-    .btn.primary:hover {
-      transform: translateY(-2px);
-      background: #6848ff;
-    }
-
-    .btn.secondary {
-      border-color: var(--accent);
-      color: var(--text);
-      background: transparent;
-    }
-
-    .btn.secondary:hover {
-      background: rgba(124, 92, 255, 0.12);
-      transform: translateY(-2px);
-    }
-
-    .hero-image {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-    .photo-frame {
-      width: min(100%, 360px);
-      aspect-ratio: 4 / 5;
-      border-radius: 28px;
-      overflow: hidden;
-      border: 1px solid var(--border);
-      box-shadow: var(--shadow);
-      background: var(--bg-2);
-      position: relative;
-      transform: translateY(0);
-      transition: 0.4s ease;
-    }
-
-    .photo-frame:hover {
-      transform: translateY(-6px) scale(1.01);
-    }
-
-    .photo-frame::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(to top, rgba(0,0,0,0.2), transparent);
-      pointer-events: none;
-    }
-
-    .photo-frame img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: center top;
-    }
-
-    .section {
-      padding: 80px 24px;
-      max-width: 1200px;
-      margin: 0 auto;
-      opacity: 0;
-      transform: translateY(24px);
-      transition: 0.7s ease;
-    }
-
-    .section.show {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    .section h3 {
-      font-size: 2rem;
-      margin-bottom: 24px;
-    }
-
-    .about p {
-      color: #c4cae8;
-      margin-bottom: 16px;
-      max-width: 850px;
-    }
-
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 16px;
-    }
-
-    .card,
-    .project-card {
-      background: var(--bg-2);
-      border: 1px solid var(--border);
-      border-radius: 18px;
-      padding: 18px;
-      box-shadow: var(--shadow);
-      transition: 0.3s ease;
-    }
-
-    .card:hover,
-    .project-card:hover {
-      transform: translateY(-4px);
-      border-color: rgba(124, 92, 255, 0.35);
-    }
-
-    .card {
-      text-align: center;
-      color: #e9ecff;
-    }
-
-    .project-card h4 {
-      margin-bottom: 10px;
-      font-size: 1.2rem;
-    }
-
-    .project-card p {
-      color: var(--muted);
-      margin-bottom: 16px;
-      max-width: 700px;
-    }
-
-    .small {
-      padding: 10px 16px;
-    }
-
-    .contact-list {
-      display: grid;
-      gap: 12px;
-      max-width: 700px;
-    }
-
-    .contact-list a {
-      color: #cfd5f7;
-      background: var(--bg-2);
-      padding: 14px 16px;
-      border-radius: 14px;
-      border: 1px solid var(--border);
-    }
-
-    .contact-list a:hover {
-      background: #1e2340;
-    }
-
-    .footer {
-      text-align: center;
-      padding: 24px;
-      color: #7f86ad;
-      border-top: 1px solid var(--border);
-    }
-
-    .to-top {
-      position: fixed;
-      right: 18px;
-      bottom: 18px;
-      background: var(--accent);
-      color: #fff;
-      border: none;
-      width: 48px;
-      height: 48px;
-      border-radius: 50%;
-      cursor: pointer;
-      box-shadow: var(--shadow);
-      opacity: 0;
-      pointer-events: none;
-      transform: translateY(10px);
-      transition: 0.3s ease;
-      z-index: 1000;
-    }
-
-    .to-top.show {
-      opacity: 1;
-      pointer-events: auto;
-      transform: translateY(0);
-    }
-
-    @media (max-width: 900px) {
-      .hero-inner {
-        grid-template-columns: 1fr;
-        text-align: center;
-      }
-
-      .hero-content {
-        margin: 0 auto;
-      }
-
-      .hero-buttons {
-        justify-content: center;
-      }
-
-      .hero-image {
-        order: -1;
-      }
-
-      .nav {
-        justify-content: center;
-      }
-
-      .menu-btn {
-        display: inline-flex;
-      }
-
-      .nav-links {
-        display: none;
-        width: 100%;
-        padding: 14px 0 0;
-      }
-
-      .nav-links.show {
-        display: flex;
-      }
-
-      .nav-links a {
-        width: 100%;
-        text-align: center;
-        padding: 8px 0;
-      }
-    }
-
-    @media (max-width: 600px) {
-      .hero,
-      .section {
-        padding-left: 16px;
-        padding-right: 16px;
-      }
-
-      .hero {
-        min-height: auto;
-        padding-top: 20px;
-        padding-bottom: 40px;
-      }
-
-      .hero-inner {
-        min-height: auto;
-        gap: 28px;
-      }
-
-      .photo-frame {
-        width: 100%;
-        max-width: 300px;
-      }
-
-      .grid {
-        grid-template-columns: 1fr;
-      }
-    }
-  </style>
+  @media (max-width: 700px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { gap: 1rem; }
+    section { padding: 4rem 1.5rem; }
+    .about-grid, .contact-grid { grid-template-columns: 1fr; }
+    .hero { padding: 7rem 1.5rem 3rem; }
+  }
+</style>
 </head>
 <body>
-  <header class="hero" id="home">
-    <nav class="nav">
-      <div class="logo">Divine</div>
-      <button class="menu-btn" id="menuBtn">Menu</button>
-      <div class="nav-links" id="navLinks">
-        <a href="#about">About</a>
-        <a href="#skills">Skills</a>
-        <a href="#hobbies">Hobbies</a>
-        <a href="#projects">Projects</a>
-        <a href="#contact">Contact</a>
-      </div>
-    </nav>
 
-    <div class="hero-inner">
-      <div class="hero-content">
-        <p class="tag">Engineering Student • Programmer • Creative Builder</p>
-        <h1>Okechukwu Divine</h1>
-        <h2><span id="typeText"></span></h2>
-        <p class="hero-text">
-          I’m an engineering student who loves turning ideas into code, building website templates,
-          and solving problems in practical ways.
-        </p>
-        <div class="hero-buttons">
-          <a href="#projects" class="btn primary">View Projects</a>
-          <a href="#contact" class="btn secondary">Contact Me</a>
-        </div>
-      </div>
+<div class="cursor-glow" id="cursor"></div>
 
-      <div class="hero-image">
-        <div class="photo-frame">
+<nav>
+  <div class="nav-logo">Divine</div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#hobbies">Hobbies</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<section class="hero" id="home">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-content">
+    <div class="hero-tag">Engineering Student &bull; Programmer &bull; Creative Builder</div>
+    <h1 class="hero-name">Okechukwu<br/><span>Divine</span></h1>
+    <p class="hero-sub">Turning ideas into code — building clean, useful, and elegant things that make sense.</p>
+    <div class="hero-btns">
+      <a href="#projects" class="btn btn-primary">View Projects</a>
+      <a href="#contact" class="btn btn-outline">Contact Me</a>
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="reveal">
+    <p class="section-label">Who I am</p>
+    <h2 class="section-title">About Me</h2>
+    <div class="divider"></div>
+  </div>
+  <div class="about-grid">
+    <div class="about-text reveal reveal-delay-1">
+      <p>I'm an engineering student with a strong interest in programming, website templates, and problem-solving. I enjoy building clean, useful, and easy-to-use things that make sense.</p>
+      <p>I like a dark, classy style, and I'm always learning, improving, and working on new projects. Outside of code, I write novels, play chess at an advanced level, and enjoy good music.</p>
+    </div>
+    <div class="about-image reveal reveal-delay-2">
+      <div style="position: relative; display: inline-block;">
+        <div class="image-accent"></div>
+        <div class="about-image-frame">
           <img src="pic.jpg" alt="Okechukwu Divine" />
         </div>
       </div>
     </div>
-  </header>
+  </div>
+</section>
 
-  <main>
-    <section class="section about" id="about">
-      <h3>About Me</h3>
-      <p>
-        I’m an engineering student with a strong interest in programming, website templates,
-        and problem-solving. I enjoy building clean, useful, and easy-to-use things that make sense.
-      </p>
-      <p>
-        Outside code, I write novels on Wattpad, enjoy good math problems, play chess as an advanced player,
-        listen to music to chill out, and spend time with good games. I also love my beauty sleep — it helps me
-        reset and stay sharp.
-      </p>
-      <p>
-        I like a dark, classy style, and I’m always learning, improving, and working on new projects.
-      </p>
-    </section>
-
-    <section class="section" id="skills">
-      <h3>Skills</h3>
-      <div class="grid">
-        <div class="card">HTML</div>
-        <div class="card">CSS</div>
-        <div class="card">JavaScript</div>
-        <div class="card">Python</div>
-        <div class="card">Problem Solving</div>
-        <div class="card">Engineering Thinking</div>
-        <div class="card">Creative Thinking</div>
-        <div class="card">Web Design</div>
+<section id="skills" style="background: var(--surface); max-width: 100%; padding: 6rem 0;">
+  <div style="max-width: 1000px; margin: 0 auto; padding: 0 3rem;">
+    <div class="reveal">
+      <p class="section-label">What I know</p>
+      <h2 class="section-title">Skills</h2>
+      <div class="divider"></div>
+    </div>
+    <div class="skills-grid">
+      <div class="skill-card reveal reveal-delay-1">
+        <div class="skill-icon">🌐</div>
+        <div class="skill-name">HTML</div>
+        <div class="skill-level">Frontend Foundation</div>
       </div>
-    </section>
-
-    <section class="section" id="hobbies">
-      <h3>Beyond Code</h3>
-      <div class="grid">
-        <div class="card">Writing novels on Wattpad</div>
-        <div class="card">Solving math problems</div>
-        <div class="card">Playing chess</div>
-        <div class="card">Listening to music</div>
-        <div class="card">Playing good games</div>
-        <div class="card">Beauty sleep 😄</div>
+      <div class="skill-card reveal reveal-delay-2">
+        <div class="skill-icon">🎨</div>
+        <div class="skill-name">CSS</div>
+        <div class="skill-level">Styling & Layout</div>
       </div>
-    </section>
-
-    <section class="section" id="projects">
-      <h3>Projects</h3>
-      <div class="project-card">
-        <h4>Project in Progress</h4>
-        <p>
-          I’m currently working on a few projects, and I’ll feature the first one that gets
-          completed here soon.
-        </p>
-        <a href="https://github.com/" target="_blank" class="btn primary small">View on GitHub</a>
+      <div class="skill-card reveal reveal-delay-3">
+        <div class="skill-icon">⚡</div>
+        <div class="skill-name">JavaScript</div>
+        <div class="skill-level">Interactivity</div>
       </div>
-
-      <div class="project-card" style="margin-top:16px;">
-        <h4>Wattpad</h4>
-        <p>I write novels there. My account link will be added soon.</p>
-        <a href="https://www.wattpad.com/user/chims-vital" target="_blank" class="btn secondary small">Visit Wattpad</a>
+      <div class="skill-card reveal reveal-delay-4">
+        <div class="skill-icon">🐍</div>
+        <div class="skill-name">Python</div>
+        <div class="skill-level">Programming</div>
       </div>
-    </section>
-
-    <section class="section" id="contact">
-      <h3>Contact</h3>
-      <div class="contact-list">
-        <a href="mailto:okechukwudivine92@gmail.com">Email: okechukwudivine92@gmail.com</a>
-        <a href="https://wa.me/2348143791330" target="_blank">WhatsApp: +234 814 379 1330</a>
-        <a href="https://github.com/Divine10-79" target="_blank">GitHub: Divine10-79</a>
+      <div class="skill-card reveal reveal-delay-5">
+        <div class="skill-icon">🧩</div>
+        <div class="skill-name">Problem Solving</div>
+        <div class="skill-level">Analytical Thinking</div>
       </div>
-    </section>
-  </main>
+      <div class="skill-card reveal reveal-delay-1">
+        <div class="skill-icon">⚙️</div>
+        <div class="skill-name">Engineering</div>
+        <div class="skill-level">Systems Thinking</div>
+      </div>
+      <div class="skill-card reveal reveal-delay-2">
+        <div class="skill-icon">💡</div>
+        <div class="skill-name">Creative Thinking</div>
+        <div class="skill-level">Design & Ideas</div>
+      </div>
+      <div class="skill-card reveal reveal-delay-3">
+        <div class="skill-icon">🖥️</div>
+        <div class="skill-name">Web Design</div>
+        <div class="skill-level">UI & UX</div>
+      </div>
+    </div>
+  </div>
+</section>
 
-  <footer class="footer">
-    Built with curiosity, logic, and code.
-  </footer>
+<section id="hobbies">
+  <div class="reveal">
+    <p class="section-label">Beyond Code</p>
+    <h2 class="section-title">Hobbies</h2>
+    <div class="divider"></div>
+  </div>
+  <div class="hobbies-list">
+    <div class="hobby-item reveal reveal-delay-1"><div class="hobby-dot"></div>Writing novels on Wattpad</div>
+    <div class="hobby-item reveal reveal-delay-2"><div class="hobby-dot"></div>Solving math problems</div>
+    <div class="hobby-item reveal reveal-delay-3"><div class="hobby-dot"></div>Playing chess (advanced)</div>
+    <div class="hobby-item reveal reveal-delay-4"><div class="hobby-dot"></div>Listening to music</div>
+    <div class="hobby-item reveal reveal-delay-5"><div class="hobby-dot"></div>Playing games</div>
+    <div class="hobby-item reveal reveal-delay-1"><div class="hobby-dot"></div>Beauty sleep 😄</div>
+  </div>
+</section>
 
-  <button class="to-top" id="toTop">↑</button>
+<section id="projects" style="background: var(--surface); max-width: 100%; padding: 6rem 0;">
+  <div style="max-width: 1000px; margin: 0 auto; padding: 0 3rem;">
+    <div class="reveal">
+      <p class="section-label">My Work</p>
+      <h2 class="section-title">Projects</h2>
+      <div class="divider"></div>
+    </div>
+    <div class="projects-grid">
+      <div class="project-card reveal reveal-delay-1">
+        <div class="project-badge">In Progress</div>
+        <h3 class="project-title">Project Coming Soon</h3>
+        <p class="project-desc">Currently building something great. The first completed project will be featured here soon.</p>
+        <a href="https://github.com/Divine10-79" class="project-link">View GitHub &rarr;</a>
+      </div>
+      <div class="project-card reveal reveal-delay-2">
+        <div class="project-badge">Creative Writing</div>
+        <h3 class="project-title">Wattpad Novels</h3>
+        <p class="project-desc">I write fiction on Wattpad. Stories built with imagination, character depth, and narrative flow.</p>
+        <a href="https://www.wattpad.com/user/chims-vital" class="project-link">Read on Wattpad &rarr;</a>
+      </div>
+    </div>
+  </div>
+</section>
 
-  <script>
-    const menuBtn = document.getElementById('menuBtn');
-    const navLinks = document.getElementById('navLinks');
-    const toTop = document.getElementById('toTop');
-    const sections = document.querySelectorAll('.section');
-    const links = document.querySelectorAll('.nav-links a');
-    const typeText = document.getElementById('typeText');
+<section id="contact">
+  <div class="reveal">
+    <p class="section-label">Get in touch</p>
+    <h2 class="section-title">Contact</h2>
+    <div class="divider"></div>
+  </div>
+  <div class="contact-grid">
+    <div class="contact-text reveal reveal-delay-1">
+      <p>I'm always open to new opportunities, collaborations, or just a good conversation. Feel free to reach out through any of the channels below.</p>
+    </div>
+    <div class="contact-links">
+      <a href="mailto:okechukwudivine92@gmail.com" class="contact-link reveal reveal-delay-1">
+        <span class="contact-link-icon">✉</span>
+        okechukwudivine92@gmail.com
+      </a>
+      <a href="https://wa.me/2348143791330" class="contact-link reveal reveal-delay-2">
+        <span class="contact-link-icon">💬</span>
+        WhatsApp: +234 814 379 1330
+      </a>
+      <a href="https://github.com/Divine10-79" class="contact-link reveal reveal-delay-3">
+        <span class="contact-link-icon">⌥</span>
+        GitHub: Divine10-79
+      </a>
+    </div>
+  </div>
+</section>
 
-    const words = [
-      'Blending engineering logic with creative programming.',
-      'Building clean templates and useful digital experiences.',
-      'Solving problems with code, logic, and curiosity.'
-    ];
+<footer>
+  <p>Built with curiosity, logic, and code &mdash; Okechukwu Divine &copy; 2025</p>
+</footer>
 
-    let wordIndex = 0;
-    let charIndex = 0;
-    let deleting = false;
+<script>
+  const cursor = document.getElementById('cursor');
+  document.addEventListener('mousemove', e => {
+    cursor.style.left = e.clientX + 'px';
+    cursor.style.top = e.clientY + 'px';
+  });
 
-    function typeLoop() {
-      const current = words[wordIndex];
-      if (!deleting) {
-        charIndex++;
-        typeText.textContent = current.slice(0, charIndex);
-        if (charIndex === current.length) {
-          deleting = true;
-          setTimeout(typeLoop, 1200);
-          return;
-        }
-      } else {
-        charIndex--;
-        typeText.textContent = current.slice(0, charIndex);
-        if (charIndex === 0) {
-          deleting = false;
-          wordIndex = (wordIndex + 1) % words.length;
-        }
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
       }
-      setTimeout(typeLoop, deleting ? 35 : 55);
-    }
-
-    typeLoop();
-
-    menuBtn?.addEventListener('click', () => {
-      navLinks.classList.toggle('show');
     });
+  }, { threshold: 0.1 });
 
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) entry.target.classList.add('show');
-      });
-    }, { threshold: 0.15 });
-
-    sections.forEach(section => observer.observe(section));
-
-    const sectionObserver = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (!entry.isIntersecting) return;
-        links.forEach(link => link.classList.remove('active'));
-        const active = document.querySelector(`.nav-links a[href="#${entry.target.id}"]`);
-        if (active) active.classList.add('active');
-      });
-    }, { threshold: 0.4 });
-
-    sections.forEach(section => sectionObserver.observe(section));
-
-    window.addEventListener('scroll', () => {
-      toTop.classList.toggle('show', window.scrollY > 400);
-    });
-
-    toTop.addEventListener('click', () => {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
-
-    document.querySelectorAll('.nav-links a').forEach(link => {
-      link.addEventListener('click', () => {
-        navLinks.classList.remove('show');
-      });
-    });
-  </script>
+  reveals.forEach(el => observer.observe(el));
+</script>
 </body>
 </html>
